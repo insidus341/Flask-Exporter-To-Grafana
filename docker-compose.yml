@@ -1,0 +1,28 @@
+
+version: '3.5'
+networks:
+  prometheus:
+    external:
+      name: promethus-external
+
+
+services:
+  app:
+    build:
+      context: app
+    stop_signal: SIGKILL
+    ports:
+      - 5000:5000
+    networks:
+      - prometheus
+
+
+
+  # dumb, random load generator
+  generator:
+    build:
+      context: generator
+    stop_signal: SIGKILL
+    networks:
+      - prometheus
+
